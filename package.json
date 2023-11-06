@@ -1,0 +1,32 @@
+{
+    "name": "todo-app-api",
+    "version": "1.0.0",
+    "description": "\"Todo application API that allows users to manage their tasks efficiently\"",
+    "main": "index.js",
+    "scripts": {
+        "start:dev": "nodemon ./src/index.js",
+        "start": "node ./src/index.js",
+        "prisma:g": "npx prisma generate --schema=./src/prisma/schema.prisma",
+        "db:p": "npx prisma bd push --schema=./src/prisma/schema.prisma"
+    },
+    "repository": {
+        "type": "git",
+        "url": "todo-app-api"
+    },
+    "author": "Durdona",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/client": "^5.5.2",
+        "bcryptjs": "^2.4.3",
+        "crypto-js": "^4.2.0",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.2",
+        "nodemailer": "^6.9.7",
+        "uuid": "^9.0.1"
+    },
+    "type": "module",
+    "engines": {
+        "node": "21.0.0"
+    }
+}
