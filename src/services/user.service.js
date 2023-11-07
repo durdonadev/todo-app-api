@@ -5,6 +5,7 @@ import { mailer } from "../utils/mailer.js";
 import { date } from "../utils/date.js";
 import jwt from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
+import { CustomError } from "../utils/custom.error.js";
 
 class UserService {
     signUp = async (input) => {
@@ -19,6 +20,41 @@ class UserService {
             }
         });
         await mailer.sendActivationMail(input.email, activationToken);
+    };
+
+    login = async (input) => {
+        const user = await prisma.user.findFirst({
+            where: {
+                email: input.email
+            },
+            select: {
+                id: true,
+                password: true
+            }
+        });
+
+        if (!user) throw new CustomError("User does not exist", 404);
+
+        const isPasswordMatches = await bcrypt.compare(
+            input.password,
+            user.password
+        );
+
+        if (!isPasswordMatches) {
+            throw new CustomError("Invalid Credentials", 401);
+        }
+
+        const token = jwt.sign(
+            {
+                userId: user.id
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "2 days"
+            }
+        );
+
+        return token;
     };
 }
 
