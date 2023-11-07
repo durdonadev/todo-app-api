@@ -7,7 +7,7 @@
         "start:dev": "nodemon ./src/index.js",
         "start": "node ./src/index.js",
         "prisma:g": "npx prisma generate --schema=./src/prisma/schema.prisma",
-        "db:p": "npx prisma bd push --schema=./src/prisma/schema.prisma"
+        "db:p": "npx prisma db push --schema=./src/prisma/schema.prisma"
     },
     "repository": {
         "type": "git",
