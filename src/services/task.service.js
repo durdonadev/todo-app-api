@@ -62,6 +62,31 @@ class TaskService {
             }
         });
     };
+
+    delete = async (id, userId) => {
+        const task = await prisma.task.findUnique({
+            where: {
+                id: id
+            }
+        });
+
+        if (!task) {
+            throw new CustomError("Task with this ID does not exist", 404);
+        }
+
+        if (task.userId !== userId) {
+            throw new CustomError(
+                "Forbidden: This task does not belong to you!",
+                403
+            );
+        }
+
+        await prisma.task.delete({
+            where: {
+                id: id
+            }
+        });
+    };
 }
 
 export const taskService = new TaskService();

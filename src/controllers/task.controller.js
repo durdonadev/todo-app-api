@@ -66,6 +66,13 @@ class TaskController {
         await taskService.update(params.id, userId, update);
         res.status(204).send();
     });
+
+    delete = catchAsync(async (req, res) => {
+        const { params } = req;
+
+        await taskService.delete(params.taskId);
+        res.status(204).send();
+    });
 }
 
 export const taskController = new TaskController();

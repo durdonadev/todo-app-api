@@ -8,5 +8,6 @@ taskRouter.post("/", userMiddleware.authenticate, taskController.create);
 taskRouter.get("/:id", userMiddleware.authenticate, taskController.getOne);
 taskRouter.get("/", userMiddleware.authenticate, taskController.getAll);
 taskRouter.patch("/:id", userMiddleware.authenticate, taskController.update);
+taskRouter.delete("/:id", userMiddleware.authenticate, taskController.delete);
 
 export { taskRouter };
