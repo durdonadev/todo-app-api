@@ -11,6 +11,7 @@ enum TaskStatus {
     TODO
     INPROGRESS
     DONE
+    ARCHIVED
 }
 
 model User {
@@ -20,18 +21,21 @@ model User {
     firstName                        String
     lastName                         String
     password                         String
-    activationToken                  String?
     passwordResetToken               String?
     passwordResetTokenExpirationDate DateTime?
     createdAt                        DateTime  @default(now())
     updatedAt                        DateTime  @updatedAt
-    tasks                            Tasks[]
+    tasks                            Task[]
 }
 
-type Tasks {
-    id          String
+model Task {
+    id          String     @id @default(auto()) @map("_id") @db.ObjectId
     title       String
-    description String?
+    description String
     due         DateTime
-    status      TaskStatus
+    status      TaskStatus @default(TODO)
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    userId      String     @db.ObjectId
+    User        User       @relation(fields: [userId], references: [id])
 }

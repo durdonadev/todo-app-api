@@ -10,16 +10,16 @@ import { CustomError } from "../utils/custom.error.js";
 class UserService {
     signUp = async (input) => {
         const hashedPassword = await bcrypt.hash(input.password);
-        const activationToken = crypto.createToken();
-        const hashedActivationToken = crypto.hash(activationToken);
+
         await prisma.user.create({
             data: {
                 ...input,
-                password: hashedPassword,
-                activationToken: hashedActivationToken
+                password: hashedPassword
+            },
+            select: {
+                id: true
             }
         });
-        await mailer.sendActivationMail(input.email, activationToken);
     };
 
     login = async (input) => {
