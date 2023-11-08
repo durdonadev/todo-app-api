@@ -70,7 +70,7 @@ class TaskService {
             }
         });
 
-        if (!task) {
+        if (task.id !== id) {
             throw new CustomError("Task with this ID does not exist", 404);
         }
 
@@ -84,6 +84,19 @@ class TaskService {
         await prisma.task.delete({
             where: {
                 id: id
+            }
+        });
+    };
+
+    changeStatus = async (id, userId, status) => {
+        await prisma.task.update({
+            where: {
+                id: id,
+                userId: userId
+            },
+
+            data: {
+                status: status
             }
         });
     };
