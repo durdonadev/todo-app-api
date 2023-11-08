@@ -6,5 +6,6 @@ const taskRouter = Router();
 
 taskRouter.post("/", userMiddleware.authenticate, taskController.create);
 taskRouter.get("/:id", userMiddleware.authenticate, taskController.getOne);
+taskRouter.get("/", userMiddleware.authenticate, taskController.getAll);
 
 export { taskRouter };

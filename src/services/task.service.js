@@ -40,6 +40,16 @@ class TaskService {
 
         return task;
     };
+
+    getAll = async (userId) => {
+        const tasks = await prisma.task.findMany({
+            where: {
+                userId: userId
+            }
+        });
+
+        return tasks;
+    };
 }
 
 export const taskService = new TaskService();

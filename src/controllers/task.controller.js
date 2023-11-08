@@ -35,6 +35,15 @@ class TaskController {
             data: task
         });
     });
+
+    getAll = catchAsync(async (req, res) => {
+        const { userId } = req;
+
+        const tasks = await taskService.getAll(userId);
+        res.status(200).json({
+            data: tasks
+        });
+    });
 }
 
 export const taskController = new TaskController();
