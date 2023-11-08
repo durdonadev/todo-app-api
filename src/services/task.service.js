@@ -50,6 +50,18 @@ class TaskService {
 
         return tasks;
     };
+
+    update = async (id, userId, update) => {
+        await prisma.task.update({
+            where: {
+                id: id,
+                userId: userId
+            },
+            data: {
+                ...update
+            }
+        });
+    };
 }
 
 export const taskService = new TaskService();

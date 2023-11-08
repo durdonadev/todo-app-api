@@ -44,6 +44,28 @@ class TaskController {
             data: tasks
         });
     });
+
+    update = catchAsync(async (req, res) => {
+        const { body, params, userId } = req;
+        const update = {};
+
+        if (body.title) {
+            update.title = body.title;
+        }
+        if (body.description) {
+            update.description = body.description;
+        }
+        if (body.due) {
+            update.due = body.due;
+        }
+
+        if (!update.title && !update.description && !update.due) {
+            throw new CustomError("No update data provided", 400);
+        }
+
+        await taskService.update(params.id, userId, update);
+        res.status(204).send();
+    });
 }
 
 export const taskController = new TaskController();
