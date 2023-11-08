@@ -39,6 +39,12 @@ class UserController {
             data: me
         });
     });
+
+    logout = catchAsync(async (req, res) => {
+        res.status(200).send({
+            token: ""
+        });
+    });
 }
 
 export const userController = new UserController();
