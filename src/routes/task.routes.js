@@ -5,5 +5,6 @@ import { taskController } from "../controllers/task.controller.js";
 const taskRouter = Router();
 
 taskRouter.post("/", userMiddleware.authenticate, taskController.create);
+taskRouter.get("/:id", userMiddleware.authenticate, taskController.getOne);
 
 export { taskRouter };

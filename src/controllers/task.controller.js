@@ -25,6 +25,16 @@ class TaskController {
             data: task
         });
     });
+
+    getOne = catchAsync(async (req, res) => {
+        const { userId, params } = req;
+
+        const task = await taskService.getOne(params.id, userId);
+
+        res.status(200).json({
+            data: task
+        });
+    });
 }
 
 export const taskController = new TaskController();
